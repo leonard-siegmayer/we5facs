@@ -1,0 +1,30 @@
+#buttons button {
+    margin-right: 10px;
+}
+
+#types div {
+    display: inline-block;
+    width: auto;
+    margin: 0px 10px;
+}
+
+#types label {
+    display: block;
+}
+
+#buttons {
+    text-align: right;
+}
+
+label:first-child {
+    font-weight: 600;
+}
+
+.floatLeft {
+    float: left;
+    margin-right: 10px;
+}
+
+#hiddenCheckbox {
+    display:none;
+}

@@ -1,0 +1,45 @@
+<div class="modal-header">
+    <h4 class="modal-title">Neue Ausstattung hinzufügen</h4>
+</div>
+<div class="modal-body">
+    <form [formGroup]="equipmentForm">
+        <div class="form-group">
+            <label for="name">Name*:</label>
+            <input type="text" class="form-control" formControlName="name" required>
+        </div>
+
+        <div id="types" class="form-group" required>
+            <label class="floatLeft">Kategorien*:</label>
+            <div class="form-check">
+                <input (change)="checkboxChanged()" type="checkbox" class="form-check-input"
+                    formControlName="repairCheck">
+                <label class="form-check-label" for="repairCheck">Reparieren</label>
+            </div>
+            <div class="form-check">
+                <input (change)="checkboxChanged()" type="checkbox" class="form-check-input"
+                    formControlName="cleanCheck">
+                <label class="form-check-label" for="cleanCheck">Reinigen</label>
+            </div>
+            <div class="form-check">
+                <input (change)="checkboxChanged()" type="checkbox" class="form-check-input"
+                    formControlName="refillCheck">
+                <label class="form-check-label" for="refillCheck">Auffüllen</label>
+            </div>
+            <input type="checkbox" [checked]="checked" id="hiddenCheckbox" formControlName="hiddenCheck" required>
+        </div>
+
+        <div class="form-group">
+            <label for="role">Zuständige Einrichtung*:</label>
+            <select class="form-control" formControlName="role" required>
+                <option *ngFor="let r of roles" [value]="r">{{ getRoleName(r) }}</option>
+            </select>
+        </div>
+        <div class="modal-footer">
+            <div id="buttons">
+                <button type="submit" class="btn btn-success" (click)="save()"
+                    [disabled]="!equipmentForm.valid">Bestätigen</button>
+                <button class="btn btn-danger" (click)="activeModal.dismiss('Close clicked')">Abbrechen</button>
+            </div>
+        </div>
+    </form>
+</div>

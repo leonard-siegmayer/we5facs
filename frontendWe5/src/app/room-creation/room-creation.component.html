@@ -1,0 +1,63 @@
+<div *ngIf="!admin">
+    <h3>Zugriff verweigert.</h3>
+</div>
+<div *ngIf="admin" id="roomCreation">
+    <h3>{{title}}</h3>
+    <div>
+        <form [formGroup]="form">
+            <div class="form-group">
+                <label for="name">Name:*</label>
+                <input class="form-control" type="text" formControlName="name">
+            </div>
+
+            <div class="form-group">
+                <label>Ausstattung hinzufügen:</label><br>
+                <div id="availableEquipment">
+                    <select class="mulit-select" multiple>
+                        <option *ngFor="let e of availableEquipment" [ngValue]="e.name" (click)="addEquipment(e)">
+                            {{e.name}}</option>
+                    </select>
+                    <label class="subLabel">Verfügbar</label>
+                </div>
+                <div class="selectArrows">
+                    <img src="assets/img/arrows.png" alt="the logo of we5 facilities">
+                </div>
+                <div id="selectedEquipment">
+                    <select class="mulit-select" multiple>
+                        <option class="openModal" (click)="openFormModal('equipment')">+ Neue Ausstattung</option>
+                        <option *ngFor="let e of selectedEquipment" (click)="removeEquipment(e)">
+                            {{e.name}}</option>
+                    </select>
+                    <label class="subLabel">Ausgewählt</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Top Meldungen hinzufügen:</label><br>
+                <div id="availableTopReports">
+                    <select class="mulit-select" multiple>
+                        <option *ngFor="let r of availableTopReports" [ngValue]="r.id" (click)="addTopReport(r)">
+                            {{formatReport(r)}}</option>
+                    </select>
+                    <label class="subLabel">Verfügbar</label>
+                </div>
+                <div class="selectArrows">
+                    <img src="assets/img/arrows.png" alt="the logo of we5 facilities">
+                </div>
+                <div id="selectedTopReports">
+                    <select class="mulit-select" multiple>
+                        <option class="openModal" (click)="openFormModal('topReport')">+ Neue Top Meldung</option>
+                        <option *ngFor="let r of selectedTopReports" [ngValue]="r.id" (click)="removeTopReport(r)">
+                            {{formatReport(r)}}</option>
+                    </select>
+                    <label class="subLabel">Ausgewählt</label>
+                </div>
+            </div>
+
+            <div id="saveButton">
+                <button type="submit" class="btn btn-success" (click)="save()">Speichern</button>
+            </div>
+        </form>
+    </div>
+
+</div>

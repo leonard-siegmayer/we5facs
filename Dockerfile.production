@@ -1,0 +1,47 @@
+FROM openjdk:8-jdk-alpine as build
+WORKDIR /workspace/app
+
+ENV SRCPATH=backend/
+
+COPY ${SRCPATH}/mvnw .
+COPY ${SRCPATH}/.mvn .mvn
+COPY ${SRCPATH}/pom.xml .
+
+RUN ./mvnw dependency:go-offline
+COPY ${SRCPATH}/src/main src/main
+RUN ./mvnw install -DskipTests
+RUN mkdir -p target/dependency && (cd target/dependency; jar -xf ../*.jar)
+
+FROM openjdk:8-jdk-alpine as backend
+VOLUME /tmp
+# RUN true, see
+# https://github.com/moby/moby/issues/37965#issuecomment-488155862
+ARG DEPENDENCY=/workspace/app/target/dependency
+RUN apk --no-cache add curl
+COPY --from=build ${DEPENDENCY}/BOOT-INF/lib /app/lib
+RUN true
+COPY --from=build ${DEPENDENCY}/BOOT-INF/lib /app/lib
+RUN true
+COPY --from=build ${DEPENDENCY}/META-INF /app/META-INF
+RUN true
+COPY --from=build ${DEPENDENCY}/BOOT-INF/classes /app
+RUN true
+ENTRYPOINT ["java","-cp","app:app/lib/*","de.SWT.facs.FacsApplication","--spring.profiles.active=production"]
+
+### build frontend ###
+FROM node:12.2.0 as buildfrontend_prod
+ENV SRCPATH=frontendWe5/
+WORKDIR /app
+ENV PATH /app/node_modules/.bin:$PATH
+COPY ${SRCPATH}/package.json /app/package.json
+COPY ${SRCPATH}/package-lock.json /app/package-lock.json
+RUN npm install
+RUN npm install -g @angular/cli@7.3.9
+COPY ${SRCPATH}/ /app
+RUN ng build --configuration=production --verbose=true
+
+### deploy frontend ###
+FROM nginx:1.15 as frontend
+COPY --from=buildfrontend_prod /app/dist/frontendWe5/ /usr/share/nginx/html
+ENV SRCPATH=frontendWe5/
+COPY ${SRCPATH}/nginx.conf /etc/nginx/conf.d/default.conf

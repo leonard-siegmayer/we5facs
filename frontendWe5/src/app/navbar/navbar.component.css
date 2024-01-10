@@ -1,0 +1,18 @@
+.fac-content{
+    flex-direction: row-reverse;
+    display: flex;
+    right: 0;
+}
+
+.fac-item{
+    display: flex !important;
+    display: inline;
+}
+
+.nav-link {
+    display: absolute;
+}
+
+#logo{
+    height: 40px;
+}

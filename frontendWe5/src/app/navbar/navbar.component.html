@@ -1,0 +1,24 @@
+<nav class="navbar bg-light">
+    <!-- Icon and Home Link -->
+    <a href="/">
+        <img src="assets/img/logo.png" alt="the logo of we5 facilities" id="logo">
+    </a>
+    <div class="fac-content">
+        <img href="">
+        <!-- Login-->
+        <div class="fac-item">
+            <app-login></app-login>
+        </div>
+        <!-- Dropdown-->
+        <div class="dropdown fac-item">
+            <button class="btn btn-light dropdown-toggle" type="button" data-toggle="dropdown">Menü
+                <span class="caret"></span></button>
+            <ul class="dropdown-menu">
+                <li *ngIf="staff || admin"><a class="nav-link" routerLink="/dispatches">Meldungen</a></li>
+                <li *ngIf="admin"><a class="nav-link" routerLink="/userManagement">Nutzerverwaltung</a></li>
+                <li *ngIf="admin"><a class="nav-link" routerLink="/createRoom">Raum hinzufügen</a></li>
+                <li *ngIf="admin"><a class="nav-link" routerLink="/rooms">Räume verwalten</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>

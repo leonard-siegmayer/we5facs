@@ -1,0 +1,110 @@
+<div>
+    <p id="roleName">Angemeldet als: {{role}}</p>
+</div>
+<div *ngIf="openReports" id="openReports">
+    <h3>Offene Meldungen</h3>
+
+    <div *ngFor="let reportsByRoom of groupReportsByRoomName('open'); trackBy: myTrackByFunction">
+        <div *ngFor="let reportsByEquipment of groupReportsByEquipment(reportsByRoom); trackBy: myTrackByFunction">
+            <!-- the button to collapse the reports -->
+            <button type="button" class="collapsible"
+                (click)="collapse(reportsByEquipment[0].equipment.name+reportsByEquipment[0].roomName)">{{formatRoomName(reportsByEquipment[0].roomName)}}
+                {{reportsByEquipment[0].equipment.name}}<span
+                    class="zaehler">{{reportsByEquipment.length}}x</span></button>
+            <!-- the reports -->
+            <div class="content" id={{reportsByEquipment[0].equipment.name+reportsByEquipment[0].roomName}}>
+                <div *ngFor="let r of reportsByEquipment" id={{r.id}} class="reports">
+                    <div class="form-group">
+                        <p *ngIf="role == 'Admin'" class="deleteReport" (click)="deleteReport(r.id)">x</p>
+                        <div class="statAndPrio">
+                            <div class="priority">
+                                <label>Priorität:</label><br>
+                                <select class="form-control autoWidth"
+                                    (change)="updatePriority(r.id, $event.target.value)" value="{{r.priority}}">
+                                    <option *ngFor="let p of priorities" value="{{p}}">{{translatePriority(p)}}</option>
+                                </select>
+                            </div>
+                            <div class="status">
+                                <label>Status:</label><br>
+                                <select class="form-control autoWidth"
+                                    (change)="updateStatus(r.id, $event.target.value)" value="{{r.status}}">
+                                    <option *ngFor="let s of status" value="{{s}}">{{translateStatus(s)}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div>
+                            <label>Gemeldet am:</label><br>
+                            <input class="form-control autoWidth date" type="text" readOnly [(value)]="r.date">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Anmerkung:</label><br>
+                        <textarea rows="1" class="form-control" name="description"
+                            (change)="updateDescription(r.id, $event.target.value)"
+                            [(value)]="r.description"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Notiz:</label><br>
+                        <textarea class="form-control" (change)="updateNote(r.id, $event.target.value)"
+                            [(value)]="r.note" name="note"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div *ngIf="closedReports" id="closedReports">
+    <h3>Geschlossene Meldungen</h3>
+
+    <div *ngFor="let reportsByRoom of groupReportsByRoomName('closed'); trackBy: myTrackByFunction">
+        <div *ngFor="let reportsByEquipment of groupReportsByEquipment(reportsByRoom); trackBy: myTrackByFunction">
+            <!-- the button to collapse the reports -->
+            <button type="button" class="collapsible"
+                (click)="collapse(reportsByEquipment[0].roomName+reportsByEquipment[0].equipment.name)">{{formatRoomName(reportsByEquipment[0].roomName)}}
+                {{reportsByEquipment[0].equipment.name}}<span
+                    class="zaehler">{{reportsByEquipment.length}}x</span></button>
+            <!-- the reports -->
+            <div class="content" id={{reportsByEquipment[0].roomName+reportsByEquipment[0].equipment.name}}>
+                <div *ngFor="let r of reportsByEquipment" class="reports" id={{r.id}}>
+                    <div class="form-group">
+                        <p *ngIf="role == 'Admin'" class="deleteReport" (click)="deleteReport(r.id)">x</p>
+                        <div class="statAndPrio">
+                            <div class="priority">
+                                <label>Priorität:</label><br>
+                                <select class="form-control autoWidth"
+                                    (change)="updatePriority(r.id, $event.target.value)" value="{{r.priority}}">
+                                    <option *ngFor="let p of priorities" value="{{p}}">{{translatePriority(p)}}</option>
+                                </select>
+                            </div>
+                            <div class="status">
+                                <label>Status:</label><br>
+                                <select class="form-control autoWidth"
+                                    (change)="updateStatus(r.id, $event.target.value)" value="{{r.status}}">
+                                    <option *ngFor="let s of status" value="{{s}}">{{translateStatus(s)}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div>
+                            <label>Gemeldet am:</label><br>
+                            <input class="form-control autoWidth date" type="text" readOnly [(value)]="r.date">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Anmerkung:</label><br>
+                        <textarea rows="1" class="form-control" name="description"
+                            (change)="updateDescription(r.id, $event.target.value)"
+                            [(value)]="r.description"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Notiz:</label><br>
+                        <textarea class="form-control" (change)="updateNote(r.id, $event.target.value)"
+                            [(value)]="r.note" name="note"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

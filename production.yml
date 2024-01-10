@@ -1,0 +1,67 @@
+version: '3.7'
+
+networks:
+  we5net:
+  net-proxy:
+    external: true
+    name: "net-proxy"
+
+
+volumes:
+  mysql:
+
+services:
+  mariadb:
+    env_file:
+      - production.env
+    restart: unless-stopped
+    image: mariadb:latest
+    restart: unless-stopped
+    # ports:
+    #   - "3306:3306"
+    expose:
+      - '3306'
+    volumes:
+      - mysql:/var/lib/mysql
+      # - ./mysqlconf:/etc/mysql/conf.d
+      - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+    networks:
+      we5net:
+
+  frontend:
+    image: ${FRONTEND_IMAGE}
+    restart: unless-stopped
+    env_file:
+      - production.env
+    # ports:
+    #   - "80:80"
+    networks:
+      net-proxy:
+      we5net:
+    labels:
+      traefik.enable: "true"
+      traefik.backend.loadbalancer.stickiness: "true"
+      traefik.frontend.passHostHeader: "true"
+      traefik.port: "80"
+      traefik.frontend.whiteList.sourceRange: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,141.13.0.0/16"
+      traefik.frontend.rule: "Host:${URL}"
+      traefik.http.frontend.entryPoints: "http"
+
+  backend:
+    image: ${BACKEND_IMAGE}
+    restart: unless-stopped
+    env_file:
+      - production.env
+    # ports:
+    #   - "8084:8084"
+    networks:
+      net-proxy:
+      we5net:
+    labels:
+      traefik.enable: "true"
+      traefik.backend.loadbalancer.stickiness: "true"
+      traefik.frontend.passHostHeader: "true"
+      traefik.port: "8084"
+      traefik.frontend.whiteList.sourceRange: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,141.13.0.0/16"
+      traefik.frontend.rule: "Host:backend.${URL}"
+      traefik.http.frontend.entryPoints: "http"

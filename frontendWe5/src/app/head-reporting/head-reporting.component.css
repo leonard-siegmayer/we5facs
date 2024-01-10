@@ -1,0 +1,10 @@
+#head, #logoContainer {
+    display: flex;
+    justify-content: center;
+    clear: right;
+}
+
+#logo {
+    height: 100px;
+}
+

@@ -1,0 +1,10 @@
+<div>
+    <h2 class="all">{{name}}</h2>
+
+    <div *ngIf="topReports.length > 0">
+        <p class="all" id="headline">Häufig auftetende Probleme in diesem Raum:</p>
+        <div class="meldung" *ngFor="let report of topReports">
+            {{report.description}}<input class="button" (click)="sendReport(report)" type="submit" value="Melden">
+        </div>
+    </div>
+</div>

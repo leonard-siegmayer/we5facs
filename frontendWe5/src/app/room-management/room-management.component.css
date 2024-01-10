@@ -1,0 +1,38 @@
+h3 {
+    font-weight: 600;
+    text-align: center;
+    margin: 20px 0px;
+}
+
+h5 {
+    color: rgb(0, 104, 122);
+    cursor: pointer;
+}
+
+h5:hover {
+    color: rgb(2, 37, 43);
+ }
+
+#roomManagement {
+    width: 90%;
+    margin: auto;
+}
+
+.edit {
+    margin-right: 15px;
+    color: rgb(0, 104, 122);
+    cursor: pointer;
+}
+
+.edit:hover {
+    color: rgb(0, 67, 78);
+}
+
+.delete:hover {
+    color: rgb(161, 0, 0);
+}
+
+.delete {
+    color: rgb(238, 0, 0);
+    cursor: pointer;
+}

@@ -1,0 +1,23 @@
+#head {
+    display: flex;
+    justify-content: center;
+    
+}
+#logo {
+    margin: 5px;
+    margin-left: 50px;
+    position: absolute;
+    width: 8%;
+    height: auto
+   
+}
+
+.loginButton {
+    position: absolute;
+    right: 0;
+    padding: 5px;
+    margin-right: 10px;
+    border-radius: 2px;
+    border: 1px solid #00457d;
+    background-color: white;
+}

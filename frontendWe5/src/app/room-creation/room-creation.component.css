@@ -1,0 +1,85 @@
+h3 {
+    font-weight: 600;
+    text-align: center;
+    margin-top: 20px;
+}
+
+label:first-child {
+    font-weight: 600;
+}
+
+#roomCreation {
+    width: 80%;
+    margin: 40px auto;
+}
+
+#saveButton {
+    margin: 20px;
+    text-align: center;
+}
+
+.openModal {
+    color: rgb(194, 0, 0);
+    font-weight: 600;
+}
+
+.openModal:hover {
+    color: rgb(153, 0, 0);
+    background-color: white !important;
+}
+
+.openModal:checked, .openModal:focus {
+    color: rgb(153, 0, 0) !important;
+    background-color: white !important;
+}
+
+#selectedTopReports, #availableTopReports, #selectedEquipment, #availableEquipment {
+    display: inline-block;
+    text-align: center;
+    width: 45%;
+    margin: 10px 1%;
+}
+
+select[multiple] {
+    width: 100%;
+    text-align: center;
+}
+
+select[multiple] option:hover {
+    background-color: rgba(235, 235, 235, 0.507);
+}
+
+label {
+    font-weight: bolder;
+    font-size: 1.2em;
+}
+
+.modalLink:hover {
+    color: rgb(34, 34, 255);
+    cursor: pointer;
+}
+
+.subLabel {
+    font-weight: 600;
+    font-size: 0.85em;
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-group:first-child {
+    margin-top: 30px;
+}
+
+.selectArrows {
+    display: inline-block;
+    justify-content: center;
+    width: 4%;
+}
+
+.selectArrows img {
+    display: flex;
+    width: 100%;
+    margin-bottom: 45px;
+}

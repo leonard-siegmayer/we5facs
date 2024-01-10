@@ -1,0 +1,41 @@
+<div class="modal-header">
+    <h4 class="modal-title">Neue Top-Meldung erstellen</h4>
+</div>
+<div class="modal-body">
+    <form [formGroup]="topReportForm">
+        <div class="form-group">
+            <label for="description">Beschreibung:*</label>
+            <input type="text" class="form-control" formControlName="description" required>
+        </div>
+
+        <div class="form-group">
+            <label for="type">Problemtyp:*</label>
+            <select class="form-control" formControlName="type" required>
+                <option *ngFor="let t of types" [value]="t">{{ getTypeName(t) }}</option>
+            </select>
+        </div>
+
+
+        <div class="form-group">
+            <label for="priority">Priorität:*</label>
+            <select class="form-control" formControlName="priority" required>
+                <option *ngFor="let p of priorities" [value]="p">{{ getPriorityName(p) }}</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="equipment">Ausstattung:*</label>
+            <select class="form-control" formControlName="equipment" required>
+                <option *ngFor="let e of equipment" [value]="e.name">{{ e.name }}</option>
+            </select>
+        </div>
+
+        <div class="modal-footer">
+            <div id="buttons">
+                <button type="submit" class="btn btn-success" (click)="save()"
+                    [disabled]="!topReportForm.valid">Bestätigen</button>
+                <button class="btn btn-danger" (click)="activeModal.dismiss('Close clicked')">Abbrechen</button>
+            </div>
+        </div>
+    </form>
+</div>

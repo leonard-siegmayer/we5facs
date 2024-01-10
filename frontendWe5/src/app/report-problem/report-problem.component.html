@@ -1,0 +1,119 @@
+<div *ngIf="room == null">
+  <h3>Dieser Raum existiert nicht!</h3>
+</div>
+<div *ngIf="room">
+  <!--This is for the report Form, you can select a Problem, write a message and get an e-mail update-->
+  <div>
+    <h2 class="pos"> Benötigten Service auswählen: </h2>
+  </div>
+  <div>
+
+    <!-- Collapse for Reparieren-->
+    <div *ngIf='repairEquipment.length > 0'>
+      <button (click)="collapse('repairContent')" class="collapsible">Reparieren</button>
+      <div class="content" id="repairContent">
+        <!-- form für Meldung von Rep mit Textfield-->
+        <form #repairForm="ngForm" name="repair" (ngSubmit)="saveReport(repairForm, 'repair')">
+          <div class="equipmentSelect">
+            <label for="equipment">Was ist beschädigt?</label>
+            <select class="form-control autoWidth" name="equipment" required ngModel>
+              <option value="" selected>Bitte auswählen</option>
+              <option *ngFor="let e of repairEquipment" (value)="e.name">{{e.name}}</option>
+            </select>
+          </div>
+          <div class="description">
+            <label for="description">Problembeschreibung:</label>
+            <textarea name="description" class="text form-control" placeholder="Hier bitte das Problem beschreiben"
+              ngModel></textarea>
+          </div>
+          <div>
+            <!-- E-mail Benachrichtigung -->
+            <input name="notifyMe" type="checkbox" checked="false" (click)="message()" ngModel>
+            <label class="notifyLabel" for="notifyMe">Ich möchte benachrichtigt werden, sobald das Problem behoben
+              wurde.</label>
+          </div>
+          <input class="btn btn-primary submitButton" type="submit" value="Bestätigen">
+        </form>
+      </div>
+    </div>
+
+    <!-- Collapse for Reinigen-->
+    <div *ngIf="cleanEquipment.length > 0">
+      <button (click)="collapse('cleanContent')" class="collapsible">Reinigen</button>
+      <div class="content" id="cleanContent">
+        <form #cleanForm="ngForm" name="clean" (ngSubmit)="saveReport(cleanForm, 'clean')">
+          <!-- from für Meldung von Rep mit Textfield-->
+          <div class="equipmentSelect">
+            <label for="equipment">Was soll gereinigt werden?</label>
+            <select class="form-control autoWidth" name="equipment" required ngModel>
+              <option value="" selected>Bitte auswählen</option>
+              <option *ngFor="let e of cleanEquipment" (value)="e.name">{{e.name}}</option>
+            </select>
+          </div>
+          <div class="description">
+            <label for="description">Problembeschreibung:</label>
+            <textarea name="description" class="text form-control" placeholder="Hier bitte das Problem beschreiben"
+              ngModel></textarea>
+          </div>
+          <div>
+            <!-- E-mail Benachrichtigung -->
+            <input name="notifyMe" type="checkbox" checked="false" (click)="message()" ngModel>
+            <label class="notifyLabel" for="notifyMe">Ich möchte benachrichtigt werden, sobald das Problem behoben
+              wurde.</label>
+          </div>
+          <input class="btn btn-primary submitButton" type="submit" value="Bestätigen">
+        </form>
+      </div>
+    </div>
+
+    <!-- Collapse for Auffüllen-->
+    <div *ngIf="refillEquipment.length > 0">
+      <button type="button" (click)="collapse('refillContent')" class="collapsible">Auffüllen</button>
+      <div class="content" id="refillContent">
+        <form #refillForm="ngForm" name="refill" (ngSubmit)="saveReport(refillForm, 'refill')">
+          <!-- from für Meldung von Rep mit Textfield-->
+          <div class="equipmentSelect">
+            <label for="equipment">Was soll aufgefüllt werden?</label>
+            <select class="form-control autoWidth" name="equipment" required ngModel>
+              <option value="">Bitte auswählen</option>
+              <option *ngFor="let e of refillEquipment" (value)="e.name">{{e.name}}</option>
+            </select>
+          </div>
+          <div class="description">
+            <label for="description">Problembeschreibung:</label>
+            <textarea name="description" class="text form-control" placeholder="Hier bitte das Problem schildern"
+              ngModel></textarea>
+          </div>
+          <div>
+            <!-- E-mail Benachrichtigung -->
+            <input name="notifyMe" type="checkbox" checked="false" (click)="message()" ngModel>
+            <label class="notifyLabel" for="notifyMe">Ich möchte benachrichtigt werden, sobald das Problem behoben
+              wurde.</label>
+          </div>
+          <input class="btn btn-primary submitButton" type="submit" value="Bestätigen">
+        </form>
+      </div>
+    </div>
+
+    <div>
+      <!-- Collapse for Sonstiges-->
+      <button class="inv" type="button" (click)="collapse('otherContent')" class="collapsible">Sonstiges</button>
+      <div class="content" id="otherContent">
+        <form #otherForm="ngForm" name="other" (ngSubmit)="saveReport(otherForm, 'other')">
+          <div class="description">
+            <label for="description">Problembeschreibung:</label>
+            <textarea name="description" class="text form-control" placeholder="Hier bitte das Problem schildern"
+              required ngModel></textarea>
+          </div>
+          <div>
+            <!-- E-mail Benachrichtigung -->
+            <input name="notifyMe" type="checkbox" checked="false" (click)="message()" ngModel>
+            <label class="notifyLabel" for="notifyMe">Ich möchte benachrichtigt werden, sobald das Problem behoben
+              wurde.</label>
+          </div>
+          <input class="btn btn-primary submitButton" type="submit" value="Bestätigen">
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

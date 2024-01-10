@@ -1,0 +1,9 @@
+.pills .specialNavItem {
+      min-width: 100%;
+      display: flex;
+      justify-content: center;
+}
+
+.pills .active {
+    background-color: #343a40;
+}

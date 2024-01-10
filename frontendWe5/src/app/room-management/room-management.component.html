@@ -1,0 +1,20 @@
+<div *ngIf="!admin">
+  <h3>Zugriff verweigert.</h3>
+</div>
+
+<div id="roomManagement" *ngIf="admin">
+  <h3>Räume verwalten</h3>
+
+  <div class="list-group">
+    <div *ngFor="let r of rooms" href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+      <div class="d-flex w-100 justify-content-between">
+        <h5 (click)="redirect(r.name)" class="mb-1">{{formatName(r.name)}}</h5>
+        <span>
+          <small class="edit" (click)="editRoom(r.name)">Bearbeiten</small>
+          <small class="delete" (click)="deleteRoom(r.name)">Löschen</small>
+        </span>
+      </div>
+      <p class="mb-1">{{formatEquipment(r.equipment)}}</p>
+    </div>
+  </div>
+</div>
